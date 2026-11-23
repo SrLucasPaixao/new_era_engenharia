@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102e50">
+  <title>Cadastro | New Era Engenharia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #102e50;
+      --navy-deep: #0a2039;
+      --blue: #23639a;
+      --blue-soft: #eaf1f8;
+      --ink: #18283a;
+      --muted: #718096;
+      --line: #dce4ec;
+      --surface: #ffffff;
+      --page: #f3f6fa;
+      --success: #18794e;
+      --shadow: 0 22px 65px rgba(16, 46, 80, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(35, 99, 154, .08), transparent 28rem),
+        var(--page);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+
+    .page-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(320px, .88fr) minmax(520px, 1.12fr);
+    }
+
+    .brand-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      min-height: 100vh;
+      padding: 46px clamp(28px, 5vw, 76px);
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(10, 32, 57, .97), rgba(16, 46, 80, .96)),
+        var(--navy);
+    }
+
+    .brand-panel::before,
+    .brand-panel::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      border: 1px solid rgba(180, 208, 233, .15);
+      transform: rotate(-28deg);
+    }
+
+    .brand-panel::before {
+      width: 680px;
+      height: 360px;
+      left: -340px;
+      bottom: 40px;
+    }
+
+    .brand-panel::after {
+      width: 620px;
+      height: 280px;
+      right: -390px;
+      top: 80px;
+    }
+
+    .brand-top, .brand-copy, .brand-footer { position: relative; z-index: 1; }
+
+    .brand-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #dce9f5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(221, 237, 250, .55);
+      border-radius: 9px;
+      font-family: "Manrope", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -.08em;
+    }
+
+    .brand-copy { max-width: 520px; margin: 70px 0; }
+
+    .logo-frame {
+      width: min(100%, 520px);
+      padding: 10px;
+      margin-bottom: 34px;
+      overflow: hidden;
+      border-radius: 13px;
+      background: #f5f7fa;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .18);
+    }
+
+    .logo-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 13px;
+      color: #9fc3e4;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy h1 {
+      max-width: 480px;
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(30px, 3.1vw, 45px);
+      line-height: 1.12;
+      letter-spacing: -.045em;
+    }
+
+    .brand-copy p {
+      max-width: 430px;
+      margin: 18px 0 0;
+      color: #c1d0df;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .brand-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #a9bbcd;
+      font-size: 12px;
+    }
+
+    .footer-line { width: 34px; height: 1px; background: #6f94b7; }
+
+    .form-panel {
+      display: grid;
+      place-items: center;
+      padding: 48px clamp(24px, 5vw, 78px);
+    }
+
+    .form-card {
+      width: min(100%, 590px);
+      padding: clamp(28px, 4vw, 46px);
+      border: 1px solid rgba(216, 226, 236, .9);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-brand { display: none; }
+
+    .form-heading { margin-bottom: 28px; }
+
+    .form-heading .eyebrow {
+      color: var(--blue);
+      margin-bottom: 9px;
+    }
+
+    .form-heading h2 {
+      margin: 0;
+      color: var(--navy-deep);
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(27px, 3vw, 34px);
+      letter-spacing: -.045em;
+    }
+
+    .form-heading p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px 14px;
+    }
+
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      margin: 0 0 7px;
+      color: #31445a;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .required { color: #b34a4a; }
+
+    input, select {
+      width: 100%;
+      min-height: 47px;
+      padding: 0 14px;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      outline: none;
+      background: #fbfcfe;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    input::placeholder { color: #a0acb9; }
+
+    input:focus, select:focus {
+      border-color: #4b83b4;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(35, 99, 154, .11);
+    }
+
+    .profile-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .profile-option { position: relative; }
+
+    .profile-option input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .profile-option label {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 66px;
+      margin: 0;
+      padding: 12px 14px;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      transition: .18s ease;
+    }
+
+    .profile-option label:hover { border-color: #8aaac8; }
+
+    .profile-option input:checked + label {
+      border-color: #3976a8;
+      background: var(--blue-soft);
+      box-shadow: inset 0 0 0 1px #3976a8;
+    }
+
+    .profile-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 34px;
+      height: 34px;
+      color: var(--blue);
+      border-radius: 8px;
+      background: #eaf1f8;
+      font-size: 16px;
+    }
+
+    .profile-option strong {
+      display: block;
+      color: #203b57;
+      font-size: 13px;
+    }
+
+    .profile-option small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .conditional-fields {
+      display: none;
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px 14px;
+      padding: 17px;
+      border: 1px solid #dbe6f0;
+      border-radius: 10px;
+      background: #f7fafe;
+    }
+
+    .conditional-fields.visible { display: grid; }
+
+    .password-wrap { position: relative; }
+    .password-wrap input { padding-right: 75px; }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      padding: 6px;
+      color: var(--blue);
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .hint {
+      margin: 6px 0 0;
+      color: #8996a5;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 22px 0 18px;
+      color: #66778a;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .terms input {
+      width: 15px;
+      min-height: 15px;
+      flex: 0 0 15px;
+      margin: 2px 0 0;
+      accent-color: var(--blue);
+    }
+
+    .terms label {
+      margin: 0;
+      color: inherit;
+      font-size: inherit;
+      font-weight: 400;
+    }
+
+    .terms a { color: var(--blue); text-decoration: none; }
+
+    .submit-button {
+      width: 100%;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      background: linear-gradient(105deg, #102e50, #245f91);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      box-shadow: 0 9px 20px rgba(16, 46, 80, .17);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(16, 46, 80, .23);
+    }
+
+    .login-link {
+      margin: 20px 0 0;
+      color: #7b8998;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .login-link a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .notice {
+      display: none;
+      margin-top: 17px;
+      padding: 12px 14px;
+      color: #315b49;
+      border: 1px solid #cce5d8;
+      border-radius: 8px;
+      background: #f0faf4;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .notice.visible { display: block; }
+
+    @media (max-width: 980px) {
+      .page-shell { grid-template-columns: 1fr; }
+      .brand-panel { display: none; }
+      .form-panel { min-height: 100vh; padding: 28px 18px; }
+      .form-card { max-width: 650px; }
+      .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 27px;
+      }
+      .mobile-brand img {
+        width: 120px;
+        height: 68px;
+        object-fit: contain;
+        border: 1px solid #e4eaf0;
+        border-radius: 7px;
+        background: #f6f8fb;
+      }
+      .mobile-brand span {
+        color: var(--navy);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .12em;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .form-card { padding: 25px 19px; border-radius: 14px; }
+      .field-grid, .conditional-fields { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .profile-options { grid-template-columns: 1fr; }
+      .conditional-fields { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <aside class="brand-panel">
+      <div class="brand-top">
+        <span class="brand-mark">NE</span>
+        <span>New Era Engenharia</span>
+      </div>
+
+      <div class="brand-copy">
+        <div class="logo-frame">
+          <img src="assets/logo-new-era.png" alt="Logomarca New Era Engenharia">
+        </div>
+        <p class="eyebrow">Engenharia • Arquitetura • Inovação</p>
+        <h1>Um novo começo para grandes projetos.</h1>
+        <p>Conectamos clientes e profissionais para transformar ideias em projetos bem planejados, com qualidade, responsabilidade e visão de futuro.</p>
+      </div>
+
+      <div class="brand-footer">
+        <span class="footer-line"></span>
+        <span>Construindo um novo amanhã.</span>
+      </div>
+    </aside>
+
+    <section class="form-panel">
+      <div class="form-card">
+        <div class="mobile-brand">
+          <img src="assets/logo-new-era.png" alt="New Era Engenharia">
+          <span>ENGENHARIA<br>CADASTRO DE ACESSO</span>
+        </div>
+
+        <header class="form-heading">
+          <p class="eyebrow">Acesso à plataforma</p>
+          <h2>Crie sua conta</h2>
+          <p>Preencha seus dados para começar a utilizar os serviços da New Era Engenharia.</p>
+        </header>
+
+        <form id="registrationForm">
+          <div class="field-grid">
+            <div class="field full">
+              <label>Tipo de cadastro <span class="required">*</span></label>
+              <div class="profile-options">
+                <div class="profile-option">
+                  <input type="radio" id="client" name="profile" value="cliente" checked>
+                  <label for="client">
+                    <span class="profile-icon">⌂</span>
+                    <span><strong>Cliente</strong><small>Quero contratar serviços</small></span>
+                  </label>
+                </div>
+                <div class="profile-option">
+                  <input type="radio" id="professional" name="profile" value="profissional">
+                  <label for="professional">
+                    <span class="profile-icon">▥</span>
+                    <span><strong>Profissional</strong><small>Quero oferecer serviços</small></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="fullName">Nome completo <span class="required">*</span></label>
+              <input id="fullName" name="fullName" type="text" placeholder="Digite seu nome completo" autocomplete="name" required minlength="3">
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail <span class="required">*</span></label>
+              <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+            </div>
+
+            <div class="field">
+              <label for="phone">Telefone <span class="required">*</span></label>
+              <input id="phone" name="phone" type="tel" placeholder="(61) 99999-9999" autocomplete="tel" required>
+            </div>
+
+            <div class="conditional-fields" id="professionalFields">
+              <div class="field">
+                <label for="education">Formação acadêmica <span class="required">*</span></label>
+                <input id="education" name="education" type="text" placeholder="Ex.: Engenharia Civil">
+              </div>
+              <div class="field">
+                <label for="area">Área de atuação <span class="required">*</span></label>
+                <input id="area" name="area" type="text" placeholder="Ex.: Projetos estruturais">
+              </div>
+              <div class="field full">
+                <label for="registration">Registro profissional (CREA/CAU), se aplicável</label>
+                <input id="registration" name="registration" type="text" placeholder="Informe seu registro, se possuir">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="password">Senha <span class="required">*</span></label>
+              <div class="password-wrap">
+                <input id="password" name="password" type="password" placeholder="Crie uma senha" autocomplete="new-password" required minlength="8">
+                <button class="toggle-password" type="button" data-target="password">Mostrar</button>
+              </div>
+              <p class="hint">Mínimo de 8 caracteres.</p>
+            </div>
+
+            <div class="field">
+              <label for="confirmPassword">Confirmar senha <span class="required">*</span></label>
+              <div class="password-wrap">
+                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Digite a senha novamente" autocomplete="new-password" required minlength="8">
+                <button class="toggle-password" type="button" data-target="confirmPassword">Mostrar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="terms">
+            <input id="terms" name="terms" type="checkbox" required>
+            <label for="terms">Confirmo que os dados informados estão corretos e concordo com os termos de uso e a política de privacidade da plataforma.</label>
+          </div>
+
+          <button class="submit-button" type="submit">
+            <span>CRIAR CONTA</span><span aria-hidden="true">→</span>
+          </button>
+
+          <p class="login-link">Já possui uma conta? <a href="#" id="loginLink">Entrar</a></p>
+          <div class="notice" id="notice" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const professionalRadio = document.getElementById("professional");
+    const clientRadio = document.getElementById("client");
+    const professionalFields = document.getElementById("professionalFields");
+    const education = document.getElementById("education");
+    const area = document.getElementById("area");
+    const form = document.getElementById("registrationForm");
+    const notice = document.getElementById("notice");
+
+    function updateProfileFields() {
+      const isProfessional = professionalRadio.checked;
+      professionalFields.classList.toggle("visible", isProfessional);
+      education.required = isProfessional;
+      area.required = isProfessional;
+    }
+
+    professionalRadio.addEventListener("change", updateProfileFields);
+    clientRadio.addEventListener("change", updateProfileFields);
+
+    document.querySelectorAll(".toggle-password").forEach(button => {
+      button.addEventListener("click", () => {
+        const field = document.getElementById(button.dataset.target);
+        const showing = field.type === "text";
+        field.type = showing ? "password" : "text";
+        button.textContent = showing ? "Mostrar" : "Ocultar";
+      });
+    });
+
+    document.getElementById("phone").addEventListener("input", event => {
+      let value = event.target.value.replace(/\D/g, "").slice(0, 11);
+      if (value.length > 10) {
+        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+      } else if (value.length > 6) {
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+      } else if (value.length > 2) {
+        value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+      } else if (value.length > 0) {
+        value = value.replace(/^(\d*)/, "($1");
+      }
+      event.target.value = value;
+    });
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      notice.classList.remove("visible");
+
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        document.getElementById("confirmPassword").setCustomValidity("As senhas não coincidem.");
+        document.getElementById("confirmPassword").reportValidity();
+        document.getElementById("confirmPassword").setCustomValidity("");
+        return;
+      }
+
+      notice.textContent = "A interface está validando os campos corretamente. Para criar e armazenar a conta de verdade, falta conectar este formulário ao PHP e ao banco de dados MySQL.";
+      notice.classList.add("visible");
+    });
+
+    document.getElementById("loginLink").addEventListener("click", event => {
+      event.preventDefault();
+      notice.textContent = "A tela de login pode ser criada como próxima etapa do sistema.";
+      notice.classList.add("visible");
+    });
+
+    updateProfileFields();
+  </script>
+</body>
+</html>

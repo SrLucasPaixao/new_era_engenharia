@@ -1,0 +1,22 @@
+PORTAL NEW ERA ENGENHARIA — PROTÓTIPO FRONT-END
+
+ARQUIVOS
+- index.html: portal integrado com visão geral e módulos de vagas, cursos e atendimento.
+- assets/logo-new-era.png: logomarca utilizada na interface.
+- cadastro.html: coloque nesta mesma pasta a tela de cadastro que desenvolvemos anteriormente para habilitar o link de cadastro.
+
+COMO EXECUTAR COM XAMPP
+1. Extraia a pasta portal_new_era.
+2. Copie-a para C:\xampp\htdocs\
+3. Inicie o Apache no XAMPP.
+4. Acesse http://localhost/portal_new_era/
+
+O QUE FUNCIONA NESTE PROTÓTIPO
+- Navegação entre os módulos.
+- Busca e filtros de vagas e cursos.
+- Simulação de candidatura e inscrição.
+- Formulário de atendimento e histórico durante a sessão.
+- Layout adaptável para celular e computador.
+
+LIMITAÇÕES
+Este é um protótipo de front-end. Vagas e cursos são exemplos demonstrativos. Candidaturas, inscrições e solicitações ficam apenas na memória do navegador enquanto a página está aberta; não são gravadas no MySQL. O login não autentica usuários. Para produção, será necessário integrar PHP, MySQL, autenticação, permissões por perfil, validação no servidor e proteção dos dados.
